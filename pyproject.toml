@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "europe-devops-job-automation"
+version = "0.1.0"
+description = "Human-in-the-loop Europe DevOps job discovery and application-packaging automation."
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["src"]

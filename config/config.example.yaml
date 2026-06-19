@@ -1,0 +1,120 @@
+candidate:
+  name: "Rahul Prajapati"
+  email: "rahulkpkprajapati147@gmail.com"
+  phone: "+91 6386658827"
+  linkedin: "https://www.linkedin.com/in/rahulkumarprajapati"
+  github: "https://github.com/Rahulkprajapati"
+  cv_path: "data/Rahul_Prajapati.pdf"
+  current_title: "Cloud Engineer"
+  summary: >-
+    DevOps / Cloud Engineer with experience across GCP, AWS, Azure, Terraform,
+    Kubernetes, Helm, ArgoCD, GitLab CI/CD, Cloud Run, Anthos Service Mesh/Istio,
+    observability, platform automation, and internal developer tooling.
+  achievements:
+    - "Automated multi-cloud infrastructure across GCP, AWS, and Azure, reducing manual operations by 70%."
+    - "Built 30+ Terraform modules and CI/CD pipelines, improving deployment speed by 3x."
+    - "Managed 100+ Kubernetes clusters with ArgoCD and Helm for GitOps deployments."
+    - "Migrated workloads from App Engine to Cloud Run, reducing cost by 60%."
+    - "Implemented Anthos Service Mesh / Istio to improve service-to-service observability and reliability."
+
+search:
+  roles:
+    - "DevOps Engineer"
+    - "Cloud Engineer"
+    - "Platform Engineer"
+    - "Site Reliability Engineer"
+    - "Infrastructure Engineer"
+    - "Kubernetes Engineer"
+  target_countries:
+    - "Germany"
+    - "Netherlands"
+    - "Ireland"
+    - "United Kingdom"
+    - "Sweden"
+    - "Spain"
+    - "Portugal"
+    - "Denmark"
+    - "Finland"
+  target_locations:
+    - "Berlin"
+    - "Munich"
+    - "Hamburg"
+    - "Amsterdam"
+    - "Dublin"
+    - "London"
+    - "Stockholm"
+    - "Madrid"
+    - "Barcelona"
+    - "Lisbon"
+  required_keywords:
+    - "GCP"
+    - "Google Cloud"
+    - "Kubernetes"
+    - "Terraform"
+    - "Helm"
+    - "ArgoCD"
+    - "GitLab"
+    - "CI/CD"
+    - "Cloud Run"
+    - "Istio"
+    - "Service Mesh"
+    - "Prometheus"
+    - "Grafana"
+    - "Signoz"
+    - "Teleport"
+    - "Python"
+    - "Go"
+    - "Golang"
+  visa_positive_keywords:
+    - "visa sponsorship"
+    - "visa support"
+    - "work permit sponsorship"
+    - "relocation support"
+    - "relocation assistance"
+    - "blue card"
+    - "eu blue card"
+    - "sponsor visa"
+  visa_negative_keywords:
+    - "no visa sponsorship"
+    - "visa sponsorship is not available"
+    - "sponsorship unavailable"
+    - "must be authorized to work"
+    - "must have the right to work"
+    - "eu citizen only"
+    - "eu citizenship required"
+    - "already eligible to work"
+  min_score: 70
+  max_jobs_per_run: 100
+
+sources:
+  arbeitnow:
+    enabled: true
+    endpoint: "https://www.arbeitnow.com/api/job-board-api"
+    visa_sponsorship: true
+    pages: 3
+  greenhouse:
+    enabled: true
+    board_tokens:
+      # Add company board tokens here, example:
+      # - gitlab
+      # - n26
+      # - adyen
+      []
+  lever:
+    enabled: true
+    companies:
+      # Add Lever company slugs here, example:
+      # - spotify
+      # - grafana
+      []
+
+application:
+  mode: "draft_only"
+  max_daily_applications: 10
+  cover_letter_template: "templates/cover_letter.md.j2"
+  output_dir: "out"
+  default_status: "new"
+
+notifications:
+  slack_enabled: false
+  slack_webhook_env: "SLACK_WEBHOOK_URL"
