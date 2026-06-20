@@ -118,3 +118,10 @@ application:
 notifications:
   slack_enabled: false
   slack_webhook_env: "SLACK_WEBHOOK_URL"
+
+google_sheets:
+  enabled: false
+  spreadsheet_id_env: "GOOGLE_SHEET_ID"
+  worksheet_name: "Application Queue"
+  preserve_existing_rows: true
+  clear_existing: true

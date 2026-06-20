@@ -8,11 +8,24 @@ on:
 jobs:
   discover:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      HAS_GCP_WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER != '' }}
+      HAS_GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT != '' }}
+      HAS_GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID != '' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Authenticate to Google Cloud with Workload Identity
+        if: env.HAS_GCP_WORKLOAD_IDENTITY_PROVIDER == 'true' && env.HAS_GCP_SERVICE_ACCOUNT == 'true'
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
@@ -20,6 +33,12 @@ jobs:
       - run: cp config/config.example.yaml config/config.yaml
       - run: python -m jobbot discover --config config/config.yaml
       - run: python -m jobbot package --config config/config.yaml --min-score 70
+      - name: Sync application queue to Google Sheets
+        if: env.HAS_GCP_WORKLOAD_IDENTITY_PROVIDER == 'true' && env.HAS_GCP_SERVICE_ACCOUNT == 'true' && env.HAS_GOOGLE_SHEET_ID == 'true'
+        env:
+          JOBBOT_GOOGLE_SHEETS_ENABLED: "true"
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+        run: python -m jobbot sync-sheets --config config/config.yaml
       - uses: actions/upload-artifact@v4
         with:
           name: application-packages

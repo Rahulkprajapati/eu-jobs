@@ -8,6 +8,7 @@ from .db import connect, upsert_jobs, get_scored_jobs
 from .scoring import score_job
 from .packager import package_jobs
 from .notify import notify_slack
+from .sheets import sync_application_queue
 from .sources.arbeitnow import fetch_arbeitnow
 from .sources.greenhouse import fetch_greenhouse
 from .sources.lever import fetch_lever
@@ -43,6 +44,11 @@ def package(config_path: str, min_score: int | None) -> None:
     print(f"Packaged {len(jobs)} jobs into {queue}")
 
 
+def sync_sheets(config_path: str, queue_path: str | None) -> None:
+    config = load_config(config_path)
+    sync_application_queue(config, queue_path)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Europe DevOps job automation")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -54,11 +60,17 @@ def main() -> None:
     p2.add_argument("--config", default="config/config.yaml")
     p2.add_argument("--min-score", type=int, default=None)
 
+    p3 = sub.add_parser("sync-sheets")
+    p3.add_argument("--config", default="config/config.yaml")
+    p3.add_argument("--queue", default=None)
+
     args = parser.parse_args()
     if args.command == "discover":
         discover(args.config)
     elif args.command == "package":
         package(args.config, args.min_score)
+    elif args.command == "sync-sheets":
+        sync_sheets(args.config, args.queue)
 
 
 if __name__ == "__main__":
